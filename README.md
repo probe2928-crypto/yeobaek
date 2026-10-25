@@ -11,7 +11,7 @@
 - `journal.json` 저널(칼럼) · `community.json` 게시판
 - `photo-data.js` 사진·출처(Unsplash) 목록, 여행·저널별 사진 묶음
 - 대회(`races.json`)·필름(`films.json`)은 인생준준 저장소 것을 같이 씀.
-  이 폴더가 `raw.githubusercontent.com/probe2928-crypto/lifejunjun/main/`에서 불러옴(대회 데이터는 인생준준 주간 업데이트가 관리).
+  `raw.githubusercontent.com/probe2928-crypto/lifejunjun/main/`에서 불러옴(대회 데이터는 인생준준 주간 업데이트가 관리).
 - `runfx.js`는 인생준준 저장소 `runfx.js` 복사본(필름 인트로). 원본을 고치면 여기도 같이 복사.
 
 ## 배포
