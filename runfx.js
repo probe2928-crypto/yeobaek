@@ -221,7 +221,7 @@
   let FILMS=null;
   function loadFilms(){if(FILMS)return Promise.resolve(FILMS);const path=CFG.filmsPath||"films.json";
     return fetch(path+"?t="+Math.floor(Date.now()/3e5),{cache:"no-store"}).then(r=>r.ok?r.json():{films:[]}).catch(()=>({films:[]})).then(d=>{
-      FILMS=(d.films||[]).filter(f=>!f.brand||f.brand==="both"||f.brand===CFG.key).sort((a,b)=>b.date.localeCompare(a.date));return FILMS;});}
+      const kst=new Date(Date.now()+324e5).toISOString().slice(0,10);FILMS=(d.films||[]).filter(f=>(!f.brand||f.brand==="both"||f.brand===CFG.key)&&(!f.date||f.date<=kst)).sort((a,b)=>b.date.localeCompare(a.date));return FILMS;});}
   function filmScenes(fm){return fm.scenes.map(s=>Object.assign({},s,{big:s.big?esc(s.big).replace(/\*(.+?)\*/g,"<em>$1</em>"):null,mid:s.mid?esc(s.mid):null}));}
   window.RunFX={
     film,introScenes,courseScenes,

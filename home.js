@@ -3,6 +3,7 @@ const slides = [...track.querySelectorAll('.hero-slide')];
 const dots = [...document.querySelectorAll('[data-slide]')];
 let activeSlide = 0;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+slides[0].classList.add('is-active');
 function reflectSlide(index, announce = false) {
   activeSlide = index;
   dots.forEach((dot, i) => {
@@ -10,7 +11,7 @@ function reflectSlide(index, announce = false) {
     if (i === index) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
   });
   document.getElementById('heroCount').innerHTML = `${String(index + 1).padStart(2, '0')} <span>/ 05</span>`;
-  slides.forEach((slide, i) => { slide.inert = i !== index; });
+  slides.forEach((slide, i) => { slide.inert = i !== index; slide.classList.toggle('is-active', i === index); });
   if (announce) document.getElementById('heroStatus').textContent = slides[index].getAttribute('aria-label');
 }
 function goTo(index) {

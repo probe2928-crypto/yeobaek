@@ -116,7 +116,8 @@ renderCards();
 <script>
 (function(){
   const host=document.getElementById('runmapCards');if(!host)return;
-  fetch('../races.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();}).catch(()=>fetch('https://raw.githubusercontent.com/probe2928-crypto/lifejunjun/main/races.json?t='+Math.floor(Date.now()/3e5)).then(r=>r.json())).then(d=>{
+  const RAW='https://raw.githubusercontent.com/probe2928-crypto/lifejunjun/main/races.json?t='+Math.floor(Date.now()/3e5);
+  (/\/lifejunjun\//.test(location.pathname)?fetch('../races.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();}).catch(()=>fetch(RAW).then(r=>r.json())):fetch(RAW).then(r=>{if(!r.ok)throw 0;return r.json();})).then(d=>{
     const order={"접수 중":0,"예약 중":0,"마감 임박":0,"접수 예정":1,"상시":2,"발표 예정":3,"마감":4};
     const list=[...d.races].sort((a,b)=>(order[a.status]??5)-(order[b.status]??5)||a.date.localeCompare(b.date)).slice(0,3);
     const f=x=>(Math.round(x*10)/10).toString();
