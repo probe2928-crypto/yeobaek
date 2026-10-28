@@ -19,3 +19,15 @@
 .carousel-dots button:not(.active):after{transform:scaleX(.55)}
 .carousel-dots button:hover:not(.active):after{transform:scaleX(.8);background:#8f978a}
 @media(prefers-reduced-motion:reduce){.hero-slide.is-active .slide-photo,.hero-slide.is-active .slide-content>*,.hero-slide.is-active .photo-credit{animation:none}.carousel-dots button:after{transition:none}}
+/* 2026-10-28 여행 카드: '이런 분께' 한 줄 — 마우스 기기는 사진 위로 올라오는 패널, 터치 기기는 본문 한 줄 */
+.fit-veil{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px 22px 22px;background:linear-gradient(180deg,rgba(24,63,54,.0),rgba(24,63,54,.94) 34%);color:#faf9f4;transform:translateY(101%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.fit-veil small{display:block;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--accent);margin:18px 0 8px}
+.fit-veil p{margin:0;font-family:Georgia,'Noto Serif KR',serif;font-size:19px;line-height:1.42;letter-spacing:-.03em;word-break:keep-all;text-wrap:balance}
+.card.feature .fit-veil,.card.wide .fit-veil{padding:28px 34px 32px}
+.card.feature .fit-veil p,.card.wide .fit-veil p{font-size:clamp(20px,2vw,27px);max-width:560px}
+@media (hover:hover) and (pointer:fine){.card:hover .fit-veil,.card:focus-visible .fit-veil{transform:none}.card:hover .visual .code,.card:focus-visible .visual .code{opacity:0;transition:opacity .2s}}
+@media (hover:none),(pointer:coarse){.fit-veil{display:none}}
+.fit-line{display:none;margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.6;color:var(--ink);word-break:keep-all}
+.fit-line span{display:inline-block;margin-right:8px;padding:2px 7px;background:var(--deep);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.06em;vertical-align:1px}
+@media (hover:none),(pointer:coarse){.fit-line{display:block}}
+@media (prefers-reduced-motion:reduce){.fit-veil{transition:opacity .2s;transform:none;opacity:0}.card:hover .fit-veil,.card:focus-visible .fit-veil{opacity:1}}
