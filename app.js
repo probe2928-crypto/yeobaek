@@ -126,12 +126,14 @@ async function loadJournal() {
     const container = $('journalArticles'); container.replaceChildren();
     for (const article of data.articles) {
       const card = document.createElement('article'); card.className = 'editor-card'; card.id = 'journal-' + article.id;
-      const meta = document.createElement('span'); meta.className = 'micro'; meta.textContent = article.category + ' / ' + dateFormat.format(new Date(article.publishAt));
+      const minutes = Math.max(1, Math.round([article.lead, ...article.paragraphs].join('').replace(/\s/g, '').length / 450));
+      const meta = document.createElement('span'); meta.className = 'micro'; meta.textContent = article.category + ' / ' + dateFormat.format(new Date(article.publishAt)) + ' · ' + minutes + ' MIN READ';
       const title = document.createElement('h3'); title.textContent = article.title;
       const lead = document.createElement('p'); lead.className = 'standfirst'; lead.textContent = article.lead;
       const intro = document.createElement('p'); intro.textContent = article.paragraphs[0];
       const photoKeys = window.journalPhotoSets[article.id] || ['samarkand', 'tainan', 'oman'];
-      const details = document.createElement('details'), summary = document.createElement('summary'); summary.textContent = '칼럼 계속 읽기'; details.append(summary);
+      const details = document.createElement('details'), summary = document.createElement('summary'); summary.className = 'journal-more'; const more = document.createElement('span'); more.textContent = '칼럼 계속 읽기'; const chip = document.createElement('span'); chip.className = 'read-chip'; chip.textContent = '약 ' + minutes + '분'; summary.append(more, chip); details.append(summary);
+      details.addEventListener('toggle', () => { card.classList.toggle('reading', details.open); updateReading(); });
       for (const [index, text] of article.paragraphs.slice(1).entries()) { const paragraph = document.createElement('p'); paragraph.textContent = text; details.append(paragraph); if (photoKeys[index + 1]) details.append(editorialFigure(photoKeys[index + 1])); }
       const imageNote=document.createElement('p'); imageNote.className='tiny-note'; imageNote.textContent='사진은 해당 여행지의 자료 사진이며, 에세이는 사진 속 장소를 실제 체험한 후기로 작성한 글이 아닙니다.'; details.append(imageNote);
       if (article.source) {
@@ -143,4 +145,17 @@ async function loadJournal() {
     $('journalSchedule').textContent = data.nextRelease ? '매주 월·수·금 오전 9시 · 다음 칼럼 ' + dateFormat.format(new Date(data.nextRelease)) + ' 공개' : '준비한 연재가 모두 공개되었습니다. 다음 편을 준비하고 있습니다.';
   } catch { $('journalSchedule').textContent = '칼럼 서버 연결을 기다리는 중입니다. 창간호를 먼저 읽어보세요.'; }
 }
+const readBar = document.createElement('div'); readBar.className = 'journal-progress'; readBar.setAttribute('aria-hidden', 'true'); document.body.append(readBar);
+function updateReading() {
+  const mid = window.innerHeight * 0.55; let active = null;
+  document.querySelectorAll('.editor-card.reading').forEach(card => {
+    const r = card.getBoundingClientRect();
+    if (r.top < mid && r.bottom > 0) active = { card, p: Math.min(1, Math.max(0, (mid - r.top) / r.height)) };
+  });
+  readBar.classList.toggle('on', !!active);
+  if (active) readBar.style.setProperty('--read', active.p.toFixed(3));
+}
+let readingFrame = 0;
+addEventListener('scroll', () => { if (!readingFrame) readingFrame = requestAnimationFrame(() => { readingFrame = 0; updateReading(); }); }, { passive: true });
+addEventListener('resize', updateReading);
 loadPosts(); loadJournal();

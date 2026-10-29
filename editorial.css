@@ -2,3 +2,15 @@
 @media(max-width:650px){.journal-cover{margin:-24px -24px 22px}.journal-cover img{height:235px}.journal-cover figcaption{padding-inline:20px}.trip-photo-gallery{gap:12px}.trip-photo-gallery img{height:140px}.trip-photo-gallery figure:first-child img{height:220px}.travel-concept{font-size:12px;padding:14px 16px}}
 /* 칼럼 수가 홀수일 때 마지막 카드는 가로형으로 펼쳐 빈칸을 없앤다 */
 @media(min-width:901px){.journal-grid>.editor-card:last-child:nth-child(odd){grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:48px;align-content:start}.journal-grid>.editor-card:last-child:nth-child(odd)>*{grid-column:2}.journal-grid>.editor-card:last-child:nth-child(odd)>.journal-cover{grid-column:1;grid-row:1/span 6;margin:-30px 0 -30px -30px;display:flex;flex-direction:column}.journal-grid>.editor-card:last-child:nth-child(odd)>.journal-cover>a{flex:1;display:block;min-height:360px}.journal-grid>.editor-card:last-child:nth-child(odd)>.journal-cover img{height:100%;min-height:360px}.journal-grid>.editor-card:last-child:nth-child(odd)>.journal-cover figcaption{padding:10px 16px 14px}.journal-grid>.editor-card:last-child:nth-child(odd)>.micro{margin-top:14px}}
+
+/* 2026-10-29 칼럼 읽기: 읽는 시간 칩 + 펼친 칼럼 진행 바 */
+.journal-grid{align-items:start}
+.journal-progress{position:fixed;inset:0 0 auto;height:3px;background:var(--accent);transform:scaleX(var(--read,0));transform-origin:left;opacity:0;z-index:200;pointer-events:none;transition:opacity .3s}
+.journal-progress.on{opacity:1}
+.journal-more{align-items:center}
+.journal-more>span:first-child{flex:1}
+.read-chip{font:600 11px/1 'DM Sans','Noto Sans KR',sans-serif;letter-spacing:.08em;color:var(--deep);border:1px solid var(--deep);border-radius:999px;padding:6px 10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.journal-grid details[open] .read-chip{background:var(--deep);color:var(--accent)}
+@media(prefers-reduced-motion:no-preference){.journal-grid details[open]>:not(summary){animation:journalIn .55s cubic-bezier(.2,.7,.2,1) both}
+.journal-grid details[open]>:nth-child(3){animation-delay:.06s}.journal-grid details[open]>:nth-child(4){animation-delay:.12s}.journal-grid details[open]>:nth-child(n+5){animation-delay:.18s}
+@keyframes journalIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}}
