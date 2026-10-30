@@ -14,3 +14,18 @@
 @media(prefers-reduced-motion:no-preference){.journal-grid details[open]>:not(summary){animation:journalIn .55s cubic-bezier(.2,.7,.2,1) both}
 .journal-grid details[open]>:nth-child(3){animation-delay:.06s}.journal-grid details[open]>:nth-child(4){animation-delay:.12s}.journal-grid details[open]>:nth-child(n+5){animation-delay:.18s}
 @keyframes journalIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}}
+.jfilters{display:flex;flex-wrap:wrap;gap:6px 28px;margin:-6px 0 28px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.jfilters button{position:relative;display:inline-flex;align-items:flex-start;gap:4px;background:none;border:0;padding:6px 0;cursor:pointer;font:600 12px/1.2 'DM Sans','Noto Sans KR',sans-serif;letter-spacing:.14em;color:var(--ink);opacity:.48;transition:opacity .25s ease}
+.jfilters button sup{font-size:9px;letter-spacing:.04em;font-variant-numeric:tabular-nums;line-height:1}
+.jfilters button::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:3px;background:var(--deep);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.jfilters button:hover,.jfilters button:focus-visible,.jfilters button[aria-pressed="true"]{opacity:1}
+.jfilters button[aria-pressed="true"]::after{transform:scaleX(1)}
+.jfilters button:focus-visible{outline:2px solid var(--deep);outline-offset:4px}
+.journal-next{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 16px;width:100%;margin-top:26px;padding:20px 22px;background:var(--deep);color:#f1efe8;border:0;text-align:left;cursor:pointer;font:inherit}
+.journal-next-label{grid-column:1/-1;font:600 10px/1 'DM Sans',sans-serif;letter-spacing:.18em;color:var(--accent)}
+.journal-next-title{font-size:19px;line-height:1.35;letter-spacing:-.03em;word-break:keep-all;text-wrap:balance}
+.journal-next-arrow{font-size:24px;line-height:1;color:var(--accent);transition:transform .3s ease}
+.journal-next:hover .journal-next-arrow,.journal-next:focus-visible .journal-next-arrow{transform:translateX(6px)}
+.journal-next:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:650px){.jfilters{gap:4px 20px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.jfilters button{flex:none}.journal-next-title{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.jfilters button::after,.journal-next-arrow,.jfilters button{transition:none}}

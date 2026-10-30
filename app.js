@@ -123,7 +123,7 @@ function editorialFigure(key, cover = false) {
 async function loadJournal() {
   try {
     const data = await api('/api/journal');
-    const container = $('journalArticles'); container.replaceChildren();
+    const container = $('journalArticles'); container.replaceChildren(); journalCards = [];
     for (const article of data.articles) {
       const card = document.createElement('article'); card.className = 'editor-card'; card.id = 'journal-' + article.id;
       const minutes = Math.max(1, Math.round([article.lead, ...article.paragraphs].join('').replace(/\s/g, '').length / 450));
@@ -140,10 +140,47 @@ async function loadJournal() {
         const link = document.createElement('a'); link.className = 'muted-link'; link.textContent = '역사 사실 참고: ' + article.source.label + ' ↗';
         link.href = article.source.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; details.append(link);
       }
-      card.append(editorialFigure(photoKeys[0], true), meta, title, lead, intro, details); container.append(card);
+      card.dataset.category = article.category;
+      card.append(editorialFigure(photoKeys[0], true), meta, title, lead, intro, details); container.append(card); journalCards.push({ card, details, article });
     }
+    journalCards.forEach((item, i) => {
+      const next = journalCards[(i + 1) % journalCards.length]; if (next === item) return;
+      const button = document.createElement('button'); button.type = 'button'; button.className = 'journal-next';
+      const label = document.createElement('span'); label.className = 'journal-next-label'; label.textContent = i + 1 < journalCards.length ? 'NEXT COLUMN' : 'BACK TO LATEST';
+      const name = document.createElement('span'); name.className = 'journal-next-title'; name.textContent = next.article.title;
+      const arrow = document.createElement('span'); arrow.className = 'journal-next-arrow'; arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = '→';
+      button.append(label, name, arrow); button.addEventListener('click', () => openJournal(next, item)); item.details.append(button);
+    });
+    renderJournalFilters();
     $('journalSchedule').textContent = data.nextRelease ? '매주 월·수·금 오전 9시 · 다음 칼럼 ' + dateFormat.format(new Date(data.nextRelease)) + ' 공개' : '준비한 연재가 모두 공개되었습니다. 다음 편을 준비하고 있습니다.';
   } catch { $('journalSchedule').textContent = '칼럼 서버 연결을 기다리는 중입니다. 창간호를 먼저 읽어보세요.'; }
+}
+let journalCards = [], journalFilter = 'ALL';
+function showJournal(category) {
+  journalFilter = category;
+  $('journalArticles').replaceChildren(...journalCards.filter(x => category === 'ALL' || x.article.category === category).map(x => x.card));
+  document.querySelectorAll('#journalFilters button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.category === category)));
+  updateReading();
+}
+function renderJournalFilters() {
+  const box = $('journalFilters'); if (!box) return; box.replaceChildren();
+  const counts = new Map([['ALL', journalCards.length]]);
+  journalCards.forEach(x => counts.set(x.article.category, (counts.get(x.article.category) || 0) + 1));
+  if (counts.size < 3) { box.hidden = true; return; }
+  for (const [category, count] of counts) {
+    const b = document.createElement('button'); b.type = 'button'; b.dataset.category = category; b.setAttribute('aria-pressed', String(category === journalFilter));
+    const name = document.createElement('span'); name.textContent = category === 'ALL' ? 'ALL' : category;
+    const n = document.createElement('sup'); n.textContent = String(count).padStart(2, '0');
+    b.append(name, n); b.addEventListener('click', () => showJournal(category)); box.append(b);
+  }
+  box.hidden = false;
+}
+function openJournal(target, from) {
+  if (journalFilter !== 'ALL' && target.article.category !== journalFilter) showJournal('ALL');
+  from.details.open = false; target.details.open = true;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(() => target.card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }));
+  target.details.querySelector('summary')?.focus({ preventScroll: true });
 }
 const readBar = document.createElement('div'); readBar.className = 'journal-progress'; readBar.setAttribute('aria-hidden', 'true'); document.body.append(readBar);
 function updateReading() {
