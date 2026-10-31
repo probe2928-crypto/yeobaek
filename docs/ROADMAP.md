@@ -4,11 +4,11 @@
 
 ## 다음 작업 (우선순위 순, 10개 이하)
 1. 저널(칼럼) 연재: 사이트 문구는 '매주 월·수·금 오전 9시' — 월·수·금 고도화 회차마다 journal.json에 1편 추가하고 photo-data.js에 사진 묶음 연결
-2. 시라카와고 사진이 1장뿐 → Unsplash/Commons에서 갓쇼 집 내부·다락 사진 추가(칼럼 본문 사진용)
+2. 시라카와고 사진이 1장뿐(작업 환경에서 Unsplash·Commons가 막혀 확인 불가 → 막힘 풀리면 진행) → Unsplash/Commons에서 갓쇼 집 내부·다락 사진 추가(칼럼 본문 사진용)
 3. 메인 RUN THE MAP 카드의 '예상 ○○만 원' 표기가 브랜드 가격 규칙('+α')과 맞는지 세준 확인 후 정리
-4. 필름 사진 점검 자동화: 작업 환경에서 Commons API·upload.wikimedia·github.io 직접 조회가 막혀 있음(10-27~10-30, WebFetch도 막힘. 10-30부터 raw.githubusercontent는 열림 → 47개 주소의 Commons 해시 경로 형식만 검사, 이상 없음) → GitHub Actions로 매일 Commons 확인하는 워크플로 검토
+4. 필름 사진 점검 자동화: 작업 환경에서 Commons API·upload.wikimedia·github.io·Unsplash 직접 조회가 막혀 있음(10-27~10-31, WebFetch도 막힘. 10-30부터 raw.githubusercontent는 열림 → 47개 주소의 Commons 해시 경로 형식만 검사, 이상 없음) → GitHub Actions로 매일 Commons 확인하는 워크플로 검토
 5. 조지아 사진 출처가 'Unsplash / Unsplash'로 표시됨(photo-data.js georgia author 값) → Unsplash 페이지에서 실제 작가명 확인해 교체
-6. 여행 상세 모달 공유 링크(#trip-3 같은 해시로 바로 열기) + 모달별 og 미리보기
+6. 여행별 링크 미리보기(og): 해시(#trip-N)는 미리보기 이미지를 못 바꿈 → trip/N.html 같은 가벼운 정적 페이지(여행별 og 이미지 + 메인 #trip-N으로 이동) 검토
 7. run.html에도 구조화 데이터(대회 Event 목록) — races.json이 외부 저장소라 빌드 없이 넣는 방법 검토
 
 ## 사용자 조치 필요
@@ -17,6 +17,8 @@
 - 여백의 지도 전용 인스타 계정이 생기면 알려주기 (지금은 @lifejunjun 링크)
 
 ## 완료
+- 2026-10-31 여행 상세 모달 공유 링크: #trip-N 주소로 바로 열림(닫으면 주소 정리), 모달 상단 '링크 복사' 알약 버튼(복사되면 라임 '복사됨', 모바일은 아이콘 원형), 모달 제목 단어 단위 줄바꿈
+- 2026-10-31 필름·대회 사진 47개 Commons 해시 경로 형식 재검사 이상 없음
 - 2026-10-30 칼럼 '조지아, 와인을 땅에서 꺼내는 나라' 발행(금요일 회차, FOOD)
 - 2026-10-30 저널 분류 탭(ALL·FOOD·HISTORY·TRAVEL ESSAY, 개수 위첨자, 딥그린 밑줄 슬라이드, 모바일 가로 스크롤) + 펼친 칼럼 끝 'NEXT COLUMN' 딥그린 바(다음 칼럼 열고 그 위치로 이동, 마지막 편은 최신으로)
 - 2026-10-29 칼럼 읽기 경험: 카드 메타에 'N MIN READ', '계속 읽기' 옆 '약 N분' 칩(펼치면 딥그린), 펼친 본문 순차 페이드업(동작 줄이기 존중), 읽는 동안 화면 맨 위 라임 진행 바
