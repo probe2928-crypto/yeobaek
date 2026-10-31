@@ -1,0 +1,66 @@
+/* 여백의 지도 — 여행별 관심 신청 페이지 (단색 배경 · 큰 사진 하나 · 굵은 워드마크 · 작은 스펙 라벨) */
+:root{--ink:#16130f;--muted:#5d564d;--line:rgba(22,19,15,.16);--paper:#faf7f2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg,#ecd9c4);color:var(--ink);font-family:'DM Sans','Noto Sans KR',sans-serif;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+[hidden]{display:none!important}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
+.brand{font-weight:900;letter-spacing:-.02em;text-decoration:none;font-size:16px}
+.top-cta{font-size:13px;font-weight:700;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;padding:6px 14px}
+main{max-width:1080px;margin:0 auto;padding:0 20px}
+.hero{position:relative;text-align:center;padding:18px 0 56px}
+.word{font-family:'DM Sans','Noto Sans KR',sans-serif;font-weight:700;font-size:clamp(64px,17vw,210px);line-height:.86;letter-spacing:-.055em;margin:6px 0 -.16em;position:relative;z-index:2;text-transform:uppercase}
+.lab{display:inline-block;font:500 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.shot{margin:0 auto;max-width:760px;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(40,25,10,.45);position:relative;z-index:1}
+.shot img{width:100%;aspect-ratio:4/5;object-fit:cover}
+@media(min-width:760px){.shot img{aspect-ratio:3/2}}
+.specs{list-style:none;margin:22px auto 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;max-width:760px}
+.specs li{font:500 12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;text-align:left}
+.specs span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hook{font-size:clamp(20px,4.6vw,30px);font-weight:700;line-height:1.45;letter-spacing:-.03em;margin:26px 0 22px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:0 28px;border-radius:999px;background:var(--ink);color:var(--paper);font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer}
+.cta.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink);min-height:46px;font-size:14px;padding:0 18px}
+.micro-note{font:500 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin:12px 0 0}
+.block{border-top:1.5px solid var(--ink);padding:34px 0 40px}
+.block h2,.apply h2{font-size:clamp(26px,5vw,40px);line-height:1.2;letter-spacing:-.04em;margin:0 0 16px;font-weight:900}
+h2 small{display:block;font:500 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.why p{font-size:17px;max-width:720px;margin:0 0 14px}
+.two{display:grid;gap:30px}
+@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
+.dots{list-style:none;padding:0;margin:0}
+.dots li{padding:12px 0 12px 22px;border-bottom:1px solid var(--line);position:relative;font-size:16px}
+.dots li:before{content:"";position:absolute;left:2px;top:21px;width:8px;height:8px;border-radius:50%;background:var(--tint)}
+.shot2{margin:0 0 40px;border-radius:18px;overflow:hidden}
+.shot2 img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.route{list-style:none;padding:0;margin:0;counter-reset:r}
+.route li{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:16px}
+.route span{font:500 12px/1.9 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.fine{font-size:13px;color:var(--muted);margin:14px 0 0}
+.apply{background:var(--paper);border-radius:24px;padding:34px 22px 30px;margin:10px 0 40px;scroll-margin-top:70px}
+@media(min-width:760px){.apply{padding:48px 56px}}
+.apply .lead{margin:0 0 22px;color:var(--muted);font-size:15px}
+#goForm{display:grid;gap:14px;max-width:520px}
+#goForm label{display:grid;gap:6px;font-size:13px;font-weight:700}
+#goForm input:not([type=checkbox]){font:inherit;font-size:16px;font-weight:400;padding:14px 16px;border:1.5px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+#goForm input:focus-visible{outline:3px solid var(--tint);outline-offset:2px}
+#goForm .chk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:13px;color:var(--muted);line-height:1.55}
+#goForm .chk input{width:20px;height:20px;margin:1px 0 0;flex:none;accent-color:var(--ink)}
+#goForm .hp{position:absolute;left:-9999px;opacity:0;pointer-events:none}
+#goForm button{margin-top:4px;width:100%}
+#goForm button:disabled{opacity:.6;cursor:wait}
+.err{color:#a3321f;font-size:13px;margin:0;min-height:1em}
+.done h3{font-size:26px;margin:0 0 8px;letter-spacing:-.03em}
+.done p,.fail p{margin:0 0 16px;color:var(--muted)}
+.fail{display:flex;flex-wrap:wrap;gap:10px}.fail p{flex-basis:100%}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{font-weight:700;font-size:16px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-weight:400}.faq details[open] summary:after{content:"–"}
+.faq p{margin:10px 0 0;color:var(--muted);font-size:15px}
+footer{max-width:1080px;margin:0 auto;padding:10px 20px 50px}
+.more{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;border-top:1.5px solid var(--ink);padding-top:22px;font-weight:700}
+.more span{font:500 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;color:var(--muted);flex-basis:100%}
+.credit{font-size:11px;color:var(--muted);margin:16px 0 0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
